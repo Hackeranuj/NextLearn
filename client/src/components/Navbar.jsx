@@ -192,7 +192,7 @@ const MobileNavbar = ({ user, logoutHandler }) => {
                 <Button variant="outline" onClick={() => navigate("/login")}>
                   Login
                 </Button>
-                <Button onClick={() => navigate("/signup")}>SignUp</Button>
+                <Button onClick={() => navigate("/login")}>SignUp</Button>
               </div>
             </>
           )}
