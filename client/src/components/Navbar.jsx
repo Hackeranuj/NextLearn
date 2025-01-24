@@ -37,7 +37,6 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
-
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
@@ -52,7 +51,7 @@ const Navbar = () => {
   }, [isSuccess]);
 
   return (
-    <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10  ">
+    <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* Desktop */}
       <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center h-full">
         <div className="flex items-center gap-2 m-4">
@@ -120,7 +119,7 @@ const Navbar = () => {
               <Button variant="outline" onClick={() => navigate("/login")}>
                 Login
               </Button>
-              <Button onClick={() => navigate("/login")}>SignUp</Button>
+              <Button onClick={() => navigate("/signup")}>SignUp</Button>
             </div>
           )}
           <DarkMode />
@@ -129,12 +128,12 @@ const Navbar = () => {
       {/* Mobile device */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
         <div className="flex items-center gap-2">
-        <School size={"30"} />
-        <h1 className="font-extrabold text-2xl">
-        <Link to={"/"}>NextLearn</Link>
-        </h1>
+          <School size={"30"} />
+          <h1 className="font-extrabold text-2xl">
+            <Link to={"/"}>NextLearn</Link>
+          </h1>
         </div>
-      
+
         <MobileNavbar user={user} logoutHandler={logoutHandler} />
       </div>
     </div>
@@ -159,31 +158,44 @@ const MobileNavbar = ({ user, logoutHandler }) => {
       <SheetContent className="flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle className="flex items-center gap-2">
-            <School/>
+            <School />
             <Link to="/">NextLearn</Link>
           </SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col space-y-4">
-          <div className="flex flex-row gap-2">
-            <BookText />
-            <span>
-              <Link to="my-learning">My Learning</Link>
-            </span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <UserRoundPen />
-            <span>
-              <Link to={"profile"}>Edit Profile</Link>
-            </span>
-          </div>
-          <Button type="submit" onClick={logoutHandler}>
-          <div className="flex flex-row items-center justify-between gap-2">
-            <span>Log out</span>
-            <LogOut />
-          </div>
-          </Button>
+          {user ? (
+            <>
+              <div className="flex flex-row gap-2">
+                <BookText />
+                <span>
+                  <Link to="my-learning">My Learning</Link>
+                </span>
+              </div>
+              <div className="flex flex-row gap-2">
+                <UserRoundPen />
+                <span>
+                  <Link to={"profile"}>Edit Profile</Link>
+                </span>
+              </div>
+              <Button type="submit" onClick={logoutHandler}>
+                <div className="flex flex-row items-center justify-between gap-2">
+                  <span>Log out</span>
+                  <LogOut />
+                </div>
+              </Button>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-col gap-4">
+                <Button variant="outline" onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+                <Button onClick={() => navigate("/signup")}>SignUp</Button>
+              </div>
+            </>
+          )}
         </nav>
         {user?.role === "instructor" && (
           <SheetFooter>
