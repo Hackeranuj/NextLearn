@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col lg:flex-row my-20">
+    <div className="flex flex-col lg:flex-row">
       {/* Sidebar for small screens: displayed at the top */}
       <div className="block lg:hidden w-full space-y-4 p-4 border-b border-gray-300 dark:border-gray-700">
         <div className="flex justify-evenly">
